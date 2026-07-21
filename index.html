@@ -60,10 +60,8 @@ a:hover { color: var(--accent-hover); }
 .page.active { display: block; }
 
 /* ===== Home ===== */
-.home-page { max-width: 600px; margin: 0 auto; padding: 80px 24px; text-align: center; }
-.home-title { font-size: 36px; font-weight: 800; color: #222; margin-bottom: 8px; }
-.home-title em { font-style: normal; color: var(--accent); }
-.home-tagline { font-size: 14px; color: var(--text-light); }
+.home-page { height: calc(100vh - 30px); }
+.home-frame { width: 100%; height: 100%; border: none; display: block; }
 
 /* ===== Skills Layout ===== */
 .skills-wrap { position: relative; min-height: calc(100vh - 30px); }
@@ -168,8 +166,7 @@ a:hover { color: var(--accent-hover); }
 <!-- ===== Home Page ===== -->
 <div class="page active" id="pg-home">
   <div class="home-page">
-    <h1 class="home-title">穿林<em>'</em>s Home</h1>
-    <p class="home-tagline">享受编程和技术所带来的快乐 — Coding Your Ambition</p>
+    <iframe class="home-frame" id="homeFrame" src="about:blank"></iframe>
   </div>
 </div>
 
@@ -207,6 +204,11 @@ function goPage(p) {
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.classList.toggle('active', a.dataset.p === p);
   });
+  if (p === 'home') {
+    const frame = document.getElementById('homeFrame');
+    frame.src = 'about:blank';
+    requestAnimationFrame(() => { frame.src = 'http://120.27.197.88:3002/'; });
+  }
   if (p === 'skills' && DATA.length && !curSkill) firstSkill();
 }
 
@@ -275,6 +277,9 @@ function showSkill(id) {
 }
 
 function esc(s) { return s ? String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') : ''; }
+
+// ============ Init: load home frame on startup ============
+document.getElementById('homeFrame').src = 'http://120.27.197.88:3002/';
 </script>
 
 </body>
