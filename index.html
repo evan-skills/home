@@ -19,10 +19,10 @@
   --accent-light: #e8f0f2;
   --border: #eaeaea;
   --radius: 4px;
-  --toc-width: 210px;
+  --toc-w: 130px;
 }
 
-html { scroll-behavior: smooth; }
+html, body { height: 100%; overflow: hidden; }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
@@ -56,62 +56,66 @@ a:hover { color: var(--accent-hover); }
 .nav-links a:hover, .nav-links a.active { color: var(--accent); background: var(--accent-light); }
 
 /* ===== Page Switch ===== */
-.page { display: none; }
-.page.active { display: block; }
+.page { display: none; height: calc(100vh - 30px); overflow: hidden; }
+.page.active { display: flex; flex-direction: column; }
 
-/* ===== Home ===== */
-.home-page { height: calc(100vh - 30px); }
-.home-frame { width: 100%; height: 100%; border: none; display: block; }
+/* ===== Home / Blog iframe area ===== */
+.page-frame { flex: 1; overflow: hidden; position: relative; }
+.page-frame iframe { width: 100%; height: 100%; border: none; display: block; }
 
 /* ===== Skills Layout ===== */
-.skills-wrap { position: relative; min-height: calc(100vh - 30px); }
+.skills-layout { display: flex; flex: 1; overflow: hidden; }
 
-/* ---- Floating Sidebar ---- */
-.skills-sidebar {
-  position: fixed; top: 30px; left: 0; bottom: 0;
-  width: 220px; z-index: 150;
-  background: #fff;
-  border-right: 1px solid var(--border);
-  box-shadow: 2px 0 12px rgba(0,0,0,0.06);
-  overflow-y: auto; padding: 10px 0;
-  transform: translateX(-100%);
-  transition: transform 0.25s ease;
+/* ---- Left TOC sidebar (semi-transparent, collapsible) ---- */
+.skills-toc {
+  width: var(--toc-w); flex-shrink: 0;
+  background: rgba(255,255,255,0.82);
+  border-right: 1px solid rgba(0,0,0,0.08);
+  overflow-y: auto; padding: 8px 0;
+  backdrop-filter: blur(4px);
+  transition: width 0.2s ease, padding 0.2s ease, opacity 0.2s ease;
 }
-.skills-sidebar.open { transform: translateX(0); }
-.skills-sidebar::-webkit-scrollbar { width: 4px; }
-.skills-sidebar::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
+.skills-toc.folded { width: 0; padding: 8px 0; opacity: 0; overflow: hidden; }
+.skills-toc::-webkit-scrollbar { width: 3px; }
+.skills-toc::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 2px; }
 
-/* Sidebar toggle handle — a thin tab on the left edge */
-.sidebar-handle {
-  position: fixed; top: 50%; left: 0; z-index: 151;
-  width: 18px; height: 60px;
-  background: #fff;
-  border: 1px solid var(--border); border-left: none;
-  border-radius: 0 6px 6px 0;
+/* toggle handle — fixed on left edge */
+.toc-toggle {
+  position: fixed; top: 42px; left: calc(var(--toc-w) + 1px); z-index: 190;
+  width: 16px; height: 34px;
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(0,0,0,0.08); border-left: none;
+  border-radius: 0 4px 4px 0;
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  font-size: 10px; color: var(--text-lighter);
-  transition: left 0.25s ease;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+  font-size: 9px; color: var(--text-lighter);
+  backdrop-filter: blur(4px);
+  transition: left 0.2s ease;
+  opacity: 0; pointer-events: none;
 }
-.sidebar-handle.out { left: 220px; }
-.sidebar-handle:hover { color: var(--accent); }
+.toc-toggle.on { opacity: 1; pointer-events: auto; }
+.toc-toggle.in { left: 16px; }
+.toc-toggle:hover { color: var(--accent); }
 
 .toc-item {
-  display: block; padding: 5px 16px 5px 16px;
-  font-size: 12px; color: var(--text-light); cursor: pointer;
+  display: block; padding: 5px 12px;
+  font-size: 11.5px; color: var(--text-light); cursor: pointer;
   border-left: 2px solid transparent;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   transition: all 0.12s;
 }
-.toc-item:hover { color: var(--accent); background: var(--accent-light); }
-.toc-item.active { color: var(--accent); background: var(--accent-light); border-left-color: var(--accent); font-weight: 600; }
-.toc-item .dots { display: inline-flex; gap: 2px; margin-left: 6px; vertical-align: middle; }
-.toc-item .dot { width: 5px; height: 5px; border-radius: 50%; background: #ddd; }
+.toc-item:hover { color: var(--accent); background: rgba(74,125,140,0.1); }
+.toc-item.active { color: var(--accent); background: rgba(74,125,140,0.12); border-left-color: var(--accent); font-weight: 600; }
+.toc-item .dots { display: inline-flex; gap: 1.5px; margin-left: 4px; vertical-align: middle; }
+.toc-item .dot { width: 4px; height: 4px; border-radius: 50%; background: #ccc; }
 .toc-item .dot.on { background: var(--accent); }
 
-/* ---- Content ---- */
-.skills-content { max-width: 780px; margin: 0 auto; padding: 28px 36px 60px; }
-.skills-content .empty { text-align: center; padding: 80px 20px; color: var(--text-lighter); font-size: 13.5px; }
+/* ---- Skills content area ---- */
+.skills-main { flex: 1; overflow-y: auto; }
+.skills-main iframe { width: 100%; height: 100%; border: none; display: block; }
+
+/* detail */
+.skills-detail { padding: 28px 48px 60px; }
 
 .skill-detail h2 { font-size: 22px; font-weight: 700; color: #222; margin-bottom: 4px; }
 .skill-detail .skill-byline { font-size: 13px; color: var(--text-light); margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
@@ -122,32 +126,22 @@ a:hover { color: var(--accent-hover); }
 .skill-detail li { position: relative; padding: 2px 0 2px 16px; font-size: 13px; color: var(--text-light); }
 .skill-detail li::before { content: ''; position: absolute; left: 0; top: 10px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); opacity: 0.45; }
 .skill-detail strong { color: var(--text); }
+.skill-detail .empty { text-align: center; padding: 80px 20px; color: var(--text-lighter); font-size: 13.5px; }
 
-/* level bar */
 .level-bar { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
 .level-bar .lbl { font-size: 11px; color: var(--text-lighter); }
 .level-bar .segs { display: flex; gap: 3px; }
 .level-bar .seg { width: 26px; height: 4px; border-radius: 2px; background: #e0e0e0; }
 .level-bar .seg.on { background: var(--accent); }
 
-/* highlights */
 .highs { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
 .highs span { padding: 4px 12px; background: var(--accent-light); border-radius: 100px; font-size: 12px; color: var(--accent); font-weight: 500; }
 
-/* tags */
 .tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 14px 0; }
 .tag { padding: 2px 9px; font-size: 11px; color: var(--text-light); background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 100px; }
 
-/* links row */
 .links-row { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; gap: 12px; flex-wrap: wrap; }
 .links-row a { font-size: 12px; }
-
-/* ===== Mobile ===== */
-@media (max-width: 768px) {
-  .skills-sidebar { width: 230px; }
-  .skills-content { padding: 20px 16px 40px; }
-  .sidebar-handle { display: none; }
-}
 </style>
 </head>
 <body>
@@ -159,27 +153,38 @@ a:hover { color: var(--accent-hover); }
     <ul class="nav-links" id="navLinks">
       <li><a data-p="home" class="active" onclick="goPage('home')">首页</a></li>
       <li><a data-p="skills" onclick="goPage('skills')">skill集</a></li>
+      <li><a data-p="blog" onclick="goPage('blog')">blog文章</a></li>
     </ul>
   </div>
 </nav>
 
 <!-- ===== Home Page ===== -->
 <div class="page active" id="pg-home">
-  <div class="home-page">
-    <iframe class="home-frame" id="homeFrame" src="about:blank"></iframe>
+  <div class="page-frame" id="container-home">
+    <iframe id="homeFrame" src="about:blank"></iframe>
+  </div>
+</div>
+
+<!-- ===== Blog Page ===== -->
+<div class="page" id="pg-blog">
+  <div class="page-frame" id="container-blog">
+    <iframe id="blogFrame" src="about:blank"></iframe>
   </div>
 </div>
 
 <!-- ===== Skills Page ===== -->
 <div class="page" id="pg-skills">
-  <div class="skills-wrap">
-    <aside class="skills-sidebar" id="sidebar">
-      <div id="toc"></div>
-    </aside>
-    <div class="sidebar-handle" id="sidebarHandle" title="skill 目录" onclick="toggleSidebar()">▶</div>
-    <main class="skills-content" id="content">
-      <div class="empty">加载中...</div>
-    </main>
+  <div class="skills-layout">
+    <nav class="skills-toc" id="skillsToc">
+      <div style="padding:8px 0 4px 12px;font-size:10.5px;font-weight:700;color:var(--text-lighter);text-transform:uppercase;letter-spacing:0.5px;">目录</div>
+      <div id="toc">
+        <div class="toc-item" style="color:var(--text-lighter);">加载中...</div>
+      </div>
+    </nav>
+    <button class="toc-toggle" id="tocToggle" onclick="toggleToc()" title="折叠目录">◀</button>
+    <div class="skills-main" id="skillsMain">
+      <div class="empty" style="position:absolute;inset:0 0 0 var(--toc-w);display:flex;align-items:center;justify-content:center;">加载中...</div>
+    </div>
   </div>
 </div>
 
@@ -188,13 +193,13 @@ a:hover { color: var(--accent-hover); }
 let DATA = [];
 let curSkill = null;
 
-// ============ Sidebar toggle ============
-function toggleSidebar() {
-  const sb = document.getElementById('sidebar');
-  const h  = document.getElementById('sidebarHandle');
-  const open = sb.classList.toggle('open');
-  h.classList.toggle('out', open);
-  h.textContent = open ? '◀' : '▶';
+// ============ TOC toggle ============
+function toggleToc() {
+  const toc = document.getElementById('skillsToc');
+  const btn = document.getElementById('tocToggle');
+  const folded = toc.classList.toggle('folded');
+  btn.textContent = folded ? '▶' : '◀';
+  btn.classList.toggle('in', folded);
 }
 
 // ============ Page switch ============
@@ -204,10 +209,16 @@ function goPage(p) {
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.classList.toggle('active', a.dataset.p === p);
   });
+  document.getElementById('tocToggle').classList.toggle('on', p === 'skills');
   if (p === 'home') {
     const frame = document.getElementById('homeFrame');
     frame.src = 'about:blank';
     requestAnimationFrame(() => { frame.src = 'http://120.27.197.88:3002/'; });
+  }
+  if (p === 'blog') {
+    const frame = document.getElementById('blogFrame');
+    frame.src = 'about:blank';
+    requestAnimationFrame(() => { frame.src = 'http://120.27.197.88:3001'; });
   }
   if (p === 'skills' && DATA.length && !curSkill) firstSkill();
 }
@@ -216,7 +227,10 @@ function goPage(p) {
 fetch('/skills.json')
   .then(r => { if (!r.ok) throw new Error(r.status + ' ' + r.statusText); return r.json(); })
   .then(d => { DATA = d; buildToc(); firstSkill(); })
-  .catch(e => { document.getElementById('content').innerHTML = '<div class="empty">加载失败：' + e.message + '</div>'; });
+  .catch(e => {
+    document.getElementById('skillsMain').innerHTML =
+      '<div class="empty" style="position:absolute;inset:0 0 0 var(--toc-w);display:flex;align-items:center;justify-content:center;">加载失败：' + e.message + '</div>';
+  });
 
 function firstSkill() {
   if (DATA.length > 0) showSkill(DATA[0].id);
@@ -226,10 +240,14 @@ function firstSkill() {
 function buildToc() {
   let h = '';
   for (const s of DATA) {
-    h += '<a class="toc-item" data-sid="' + esc(s.id) + '" onclick="showSkill(\'' + esc(s.id) + '\')">'
-      + esc(s.icon||'') + ' ' + esc(s.name) + '<span class="dots">';
-    for (let i = 0; i < 5; i++) h += '<span class="dot' + (i < s.level ? ' on' : '') + '"></span>';
-    h += '</span></a>';
+    h += '<a class="toc-item" data-sid="' + esc(s.id) + '" title="' + esc(s.name) + '" onclick="showSkill(\'' + esc(s.id) + '\')">'
+      + esc(s.icon||'') + ' ' + esc(s.name);
+    if (!s.url) {
+      h += '<span class="dots">';
+      for (let i = 0; i < 5; i++) h += '<span class="dot' + (i < s.level ? ' on' : '') + '"></span>';
+      h += '</span>';
+    }
+    h += '</a>';
   }
   document.getElementById('toc').innerHTML = h;
 }
@@ -244,7 +262,21 @@ function showSkill(id) {
   const el = document.querySelector('[data-sid="' + esc(id) + '"]');
   if (el) el.classList.add('active');
 
-  let o = '<div class="skill-detail">';
+  const main = document.getElementById('skillsMain');
+
+  // Iframe mode
+  if (s.url) {
+    main.innerHTML = '<iframe id="skillIframe" src="about:blank" style="width:100%;height:100%;border:none;"></iframe>';
+    const frame = document.getElementById('skillIframe');
+    requestAnimationFrame(() => { frame.src = s.url; });
+    return;
+  }
+
+  // Detail mode
+  main.innerHTML = '<div class="skills-detail"><div class="skill-detail" id="skillDetail"></div></div>';
+  const detail = document.getElementById('skillDetail');
+
+  let o = '';
   o += '<h2>' + esc(s.icon||'') + ' ' + esc(s.name) + '</h2>';
 
   o += '<div class="level-bar"><span class="lbl">熟练度</span><span class="segs">';
@@ -272,13 +304,12 @@ function showSkill(id) {
     o += '</div>';
   }
 
-  o += '</div>';
-  document.getElementById('content').innerHTML = o;
+  detail.innerHTML = o;
 }
 
 function esc(s) { return s ? String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') : ''; }
 
-// ============ Init: load home frame on startup ============
+// ============ Init ============
 document.getElementById('homeFrame').src = 'http://120.27.197.88:3002/';
 </script>
 

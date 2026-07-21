@@ -1,114 +1,18 @@
 [
   {
-    "id": "java",
-    "name": "Java",
-    "icon": "☕",
-    "level": 5,
-    "tags": ["Java", "JVM", "Spring"],
-    "summary": "10 年 Java 开发经验，精通 JVM 调优与 Spring 生态",
-    "content": "<h3>Java 技术栈</h3><p>10 年 Java 开发经验，主要从事后端服务与中间件开发。</p><h4>熟练掌握</h4><ul><li>Java 8/11/17/21 新特性，熟悉虚拟线程、模式匹配等现代特性</li><li>JVM 内存模型、GC 调优（G1、ZGC）</li><li>并发编程：JUC、线程池模型、异步编程</li><li>Spring Boot / Spring Cloud 微服务体系</li><li>MyBatis / JPA 持久层框架</li></ul><h4>工程实践</h4><ul><li>DDD 领域驱动设计落地经验</li><li>代码质量：SonarQube、Checkstyle 规范落地</li><li>性能优化：从 SQL 到 JVM 全链路调优</li></ul>",
-    "links": [{ "text": "Spring 官方文档", "url": "https://spring.io/docs" }],
-    "highlights": ["10 年深度使用", "JVM 调优实战", "Spring 生态精通"]
+    "id": "blog",
+    "name": "blog文章",
+    "icon": "📝",
+    "level": 0,
+    "url": "http://120.27.197.88:3001",
+    "summary": "技术博客文章"
   },
   {
-    "id": "go",
-    "name": "Go",
-    "icon": "🐹",
-    "level": 4,
-    "tags": ["Go", "gRPC", "并发"],
-    "summary": "5 年 Go 开发经验，擅长高并发服务与基础组件",
-    "content": "<h3>Go 技术栈</h3><p>5 年 Go 开发经验，主要用于构建高性能中间件与基础设施。</p><h4>熟练掌握</h4><ul><li>goroutine / channel 并发模型</li><li>gRPC + Protobuf 微服务通信</li><li>Go 内存管理与性能分析（pprof）</li><li>标准库深度使用：net/http、context、sync</li></ul><h4>代表项目</h4><ul><li>分布式任务调度系统（etcd + gRPC）</li><li>高性能 API 网关</li></ul>",
-    "highlights": ["高并发服务开发", "基础组件构建", "5 年实战经验"]
-  },
-  {
-    "id": "python",
-    "name": "Python",
-    "icon": "🐍",
-    "level": 3,
-    "tags": ["Python", "FastAPI", "脚本"],
-    "summary": "熟练使用 Python 进行工具开发与数据处理",
-    "content": "<h3>Python 技能</h3><p>主要用于工具脚本、数据分析与 AI 相关开发。</p><h4>使用场景</h4><ul><li>FastAPI 构建 RESTful 服务</li><li>数据处理：Pandas、NumPy</li><li>自动化脚本与运维工具</li><li>LangChain / LlamaIndex AI 应用开发</li></ul>",
-    "highlights": ["AI/LLM 应用开发", "自动化工具链", "数据分析处理"]
-  },
-  {
-    "id": "spring-ecosystem",
-    "name": "Spring 生态",
-    "icon": "🍃",
-    "level": 5,
-    "tags": ["Spring Boot", "Spring Cloud", "Spring AI"],
-    "summary": "精通 Spring 全家桶，从 Boot 到 Cloud 到 AI 全覆盖",
-    "content": "<h3>Spring 生态系统</h3><p>Java 后端开发的基石，深度掌握 Spring 全系列框架。</p><h4>核心技术</h4><ul><li><strong>Spring Boot</strong>：自动配置原理、Starter 定制、Actuator 监控</li><li><strong>Spring Cloud</strong>：Nacos 注册配置中心、Gateway 网关、OpenFeign 远程调用</li><li><strong>Spring Security</strong>：OAuth2、JWT 认证授权体系</li><li><strong>Spring AI</strong>：LLM 集成、Agent 编排、RAG 向量检索</li></ul>",
-    "links": [{ "text": "Spring AI 参考", "url": "https://spring.io/projects/spring-ai" }],
-    "highlights": ["全家桶精通", "微服务架构落地", "Spring AI 实践"]
-  },
-  {
-    "id": "kubernetes",
-    "name": "Kubernetes",
-    "icon": "☸️",
-    "level": 4,
-    "tags": ["K8s", "Docker", "云原生"],
-    "summary": "熟练使用 K8s 进行容器编排与服务治理",
-    "content": "<h3>Kubernetes 技能</h3><p>云原生基础设施的核心能力。</p><h4>实践能力</h4><ul><li>Pod / Deployment / Service / Ingress 核心资源编排</li><li>Helm Chart 编写与发布</li><li>HPA 弹性伸缩策略配置</li><li>Istio 服务网格落地</li><li>日志收集：EFK/ELK Stack</li><li>监控体系：Prometheus + Grafana</li></ul>",
-    "highlights": ["生产环境运维", "服务网格实践", "可观测性建设"]
-  },
-  {
-    "id": "mysql",
-    "name": "MySQL",
-    "icon": "🗄️",
-    "level": 5,
-    "tags": ["MySQL", "SQL优化", "分库分表"],
-    "summary": "深入理解 MySQL 架构，擅长 SQL 优化与库表设计",
-    "content": "<h3>MySQL 技能</h3><p>后端开发中最核心的数据存储技能。</p><h4>深入掌握</h4><ul><li>InnoDB 存储引擎：B+Tree 索引、MVCC、Buffer Pool</li><li>SQL 优化：执行计划分析、索引优化、慢查询治理</li><li>分库分表方案：ShardingSphere 实战</li><li>主从复制与读写分离架构</li><li>数据迁移与归档策略</li></ul>",
-    "highlights": ["SQL 性能调优", "分库分表架构", "高可用方案设计"]
-  },
-  {
-    "id": "redis",
-    "name": "Redis",
-    "icon": "🔴",
-    "level": 4,
-    "tags": ["Redis", "缓存", "分布式锁"],
-    "summary": "精通 Redis 数据结构与应用场景设计",
-    "content": "<h3>Redis 技能</h3><p>高性能缓存与分布式数据结构的核心组件。</p><h4>应用场景</h4><ul><li>缓存策略：Cache-Aside、Write-Behind</li><li>分布式锁：Redisson 实战</li><li>消息队列：Stream 类型应用</li><li>排行榜、计数器、限流器</li><li>Redis Cluster 高可用部署</li></ul>",
-    "highlights": ["缓存架构设计", "分布式锁实践", "高性能数据结构"]
-  },
-  {
-    "id": "kafka",
-    "name": "Kafka",
-    "icon": "📨",
-    "level": 4,
-    "tags": ["Kafka", "消息队列", "CDC"],
-    "summary": "熟悉 Kafka 原理，有实时数据同步实战经验",
-    "content": "<h3>Kafka 技能</h3><p>分布式消息系统的核心能力。</p><h4>实践经验</h4><ul><li>Producer / Consumer 调优：批量发送、压缩、offset 管理</li><li>分区策略与消费组设计</li><li>Kafka Connect / CDC 数据同步</li><li>Flink + Kafka 实时计算</li><li>消息可靠性：幂等、事务、Exactly-Once 语义</li></ul>",
-    "highlights": ["CDC 实时同步", "流式计算集成", "消息可靠性保障"]
-  },
-  {
-    "id": "cicd",
-    "name": "CI/CD",
-    "icon": "🔄",
-    "level": 4,
-    "tags": ["Jenkins", "GitLab CI", "GitHub Actions"],
-    "summary": "搭建完整的持续集成与交付流水线",
-    "content": "<h3>CI/CD 实践</h3><p>自动化构建、测试、部署全流程。</p><h4>工具链</h4><ul><li><strong>Jenkins</strong>：Pipeline as Code、多分支流水线</li><li><strong>GitLab CI</strong>：.gitlab-ci.yml 编排</li><li><strong>GitHub Actions</strong>：Workflow 设计与 Marketplace 集成</li><li><strong>ArgoCD</strong>：GitOps 部署流程</li></ul>",
-    "highlights": ["自动化流水线", "GitOps 实践", "多环境管理"]
-  },
-  {
-    "id": "linux",
-    "name": "Linux",
-    "icon": "🐧",
-    "level": 4,
-    "tags": ["Linux", "Shell", "性能分析"],
-    "summary": "熟练的 Linux 操作与排障能力",
-    "content": "<h3>Linux 技能</h3><p>日常开发与线上排障的基础能力。</p><h4>核心技能</h4><ul><li>Shell 脚本编写与自动化</li><li>性能分析工具链：top、vmstat、iostat、perf</li><li>网络排障：tcpdump、ss、iptables</li><li>系统调优：内核参数、文件描述符、资源限制</li><li>安全加固与权限管理</li></ul>",
-    "highlights": ["线上排障", "性能分析", "Shell 自动化"]
-  },
-  {
-    "id": "llm-agent",
-    "name": "LLM Agent 开发",
-    "icon": "🧠",
-    "level": 4,
-    "tags": ["LLM", "Agent", "RAG", "Spring AI"],
-    "summary": "基于大语言模型的智能代理平台开发经验",
-    "content": "<h3>LLM Agent 开发</h3><p>大模型应用开发的前沿实践。</p><h4>技术栈</h4><ul><li><strong>Spring AI</strong>：Java 生态 LLM 集成框架</li><li><strong>RAG 架构</strong>：向量数据库 + 知识库检索增强生成</li><li><strong>Agent 编排</strong>：多 Agent 协作、工具调用、Function Calling</li><li><strong>Prompt Engineering</strong>：结构化提示词设计与优化</li><li>理解 Transformer 架构、Attention 机制原理</li></ul><h4>项目经验</h4><ul><li>Easy Agent 智能助手平台（Java + Spring AI）</li><li>基于 RAG 的企业知识库问答系统</li></ul>",
-    "highlights": ["Agent 架构设计", "RAG 落地方案", "Spring AI 实战"]
+    "id": "rss-daily",
+    "name": "RSS 每日摘要",
+    "icon": "📡",
+    "level": 0,
+    "url": "http://120.27.197.88:3002",
+    "summary": "RSS 订阅每日技术摘要"
   }
 ]
