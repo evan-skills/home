@@ -3,6 +3,11 @@
 echo "===== Restarting Server ====="
 echo ""
 
+# Pull latest code
+echo "Pulling latest code..."
+git pull origin main
+echo ""
+
 # Kill previous process on port 3000
 PID=$(lsof -ti :3000 2>/dev/null)
 if [ -n "$PID" ]; then
